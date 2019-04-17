@@ -1,20 +1,23 @@
 <template>
-  <div class="hello">
-    BOO!
-  </div>
+  <ul>
+    <router-link tag="li" to="/" v-for="post in posts" :key="post.id">
+      <h2>{{post.mainCatTitle}}</h2>
+      <p>{{post.lead}}</p>
+      <p>1</p>
+    </router-link>
+  </ul>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'kek'
+  name: 'list',
+  computed: {
+    posts () {
+      return this.$store.state.data.posts ? this.$store.state.data.posts.data : []
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

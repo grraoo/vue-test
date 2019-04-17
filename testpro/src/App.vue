@@ -12,6 +12,9 @@ export default {
   name: 'App',
   components: {
     myHeader
+  },
+  created () {
+    this.$store.dispatch('fetchData')
   }
 }
 </script>

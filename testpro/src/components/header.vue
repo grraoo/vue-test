@@ -8,8 +8,8 @@
     </div>
     <nav class="categories">
       <ul class="navigation">
-        <li v-for="i in 3" :key="i">
-          <router-link class="navigation__link" :class="{'navigation__link--active': i === $route.params.id}" :to="{name: 'category', params: {id: i}}">{{i}}</router-link>
+        <li v-for="cat in categories" :key="cat.id">
+          <router-link class="navigation__link" :class="{'navigation__link--active': cat === $route.params.id}" :to="{name: 'category', params: {id: cat.alias}}">{{cat.title}}</router-link>
         </li>
       </ul>
     </nav>
@@ -24,8 +24,13 @@
 export default {
   name: 'Header',
   methods: {
-    openPopup() {
+    openPopup () {
       alert('POPUP')
+    }
+  },
+  computed: {
+    categories () {
+      return this.$store.state.data.categories ? this.$store.state.data.categories.name : {}
     }
   }
 }
