@@ -14,7 +14,7 @@ const store = new Vuex.Store({
       state.data = data
     },
     setPopup (state, flag) {
-      state.popup  = flag
+      state.popup = flag
     }
   },
   actions: {

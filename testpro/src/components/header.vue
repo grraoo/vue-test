@@ -31,7 +31,7 @@ export default {
   name: 'Header',
   methods: {
     togglePopup () {
-      this.$store.commit('setPopup', !this.popup);
+      this.$store.commit('setPopup', !this.popup)
     }
   },
   computed: {
@@ -39,7 +39,7 @@ export default {
       return this.$store.state.data.categories ? this.$store.state.data.categories.name : {}
     },
     popup () {
-      return this.$store.state.popup;
+      return this.$store.state.popup
     }
   }
 }

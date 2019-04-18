@@ -153,7 +153,6 @@ export default {
     text-align: right;
   }
 
-
   &__content {
     background-color: #ffffff;
     align-self: stretch;
