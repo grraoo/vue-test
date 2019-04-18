@@ -1,10 +1,23 @@
 <template>
   <ul>
-    <router-link tag="li" to="/" v-for="post in posts" :key="post.id">
-      <h2>{{post.mainCatTitle}}</h2>
-      <p>{{post.lead}}</p>
-      <p>1</p>
-    </router-link>
+    <li>
+      <router-link :to="{name: 'post', params:{id:post.fulllink}}" v-for="post in posts" :key="post.id"
+      class="post-card">
+      <article>
+        <section class="time">
+          {{post.date}}
+        </section>
+        <section class="image">
+          <img :src="post.mainImageLink.thumbnail" alt="">
+        </section>
+        <section class="content">
+          <h2 class="category">{{post.mainCatTitle}}</h2>
+          <p>{{post.lead}}</p>
+        </section>
+
+      </article>
+      </router-link>
+    </li>
   </ul>
 </template>
 
@@ -20,4 +33,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.category {
+
+  font-family: Roboto;
+  font-size: 13px;
+  color: #17a083;
+  font-weight: normal
+}
+.post-card {
+  text-decoration: none;
+}
 </style>

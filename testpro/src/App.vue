@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <my-header />
-    <router-view/>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -20,5 +22,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 </style>
