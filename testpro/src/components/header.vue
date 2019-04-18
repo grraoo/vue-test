@@ -1,22 +1,28 @@
 <template>
   <header>
-
-    <div class="logo">
-      <button @click="openPopup" class="menu-btn">menu</button>
-
-      <router-link :to="{path: '/'}"><img src="../assets/hero.svg"></router-link>
+    <div class="header__top">
+      <div class="logo">
+        <button @click="togglePopup" class="menu-btn" :class="{'menu-btn--active': popup}">menu</button>
+        <router-link :to="{path: '/'}"><img src="../assets/hero.svg"></router-link>
+      </div>
+      <nav class="categories">
+        <ul class="navigation">
+          <li v-for="cat in categories" :key="cat.id">
+            <router-link class="navigation__link" :class="{'navigation__link--active': cat === $route.params.id}" :to="{name: 'category', params: {id: cat.alias}}">{{cat.title}}</router-link>
+          </li>
+        </ul>
+      </nav>
+      <aside>
+        <span>18+</span>
+      </aside>
     </div>
-    <nav class="categories">
-      <ul class="navigation">
-        <li v-for="cat in categories" :key="cat.id">
-          <router-link class="navigation__link" :class="{'navigation__link--active': cat === $route.params.id}" :to="{name: 'category', params: {id: cat.alias}}">{{cat.title}}</router-link>
-        </li>
-      </ul>
-    </nav>
-    <aside>
-      <span>18+</span>
-    </aside>
-
+    <section class="header__bottom">
+      <div class="container">
+        <h1 class="main-heading">Просто герой</h1>
+        <p class="sub-heading">Главные новости о событиях в России: комментарии, мнения, интервью, аналитические материалы. Последние актуальные новости Российской Федерации.</p>
+      </div>
+    </section>
+    <div class="popup" v-if="popup">popup</div>
   </header>
 </template>
 
@@ -24,23 +30,35 @@
 export default {
   name: 'Header',
   methods: {
-    openPopup () {
-      alert('POPUP')
+    togglePopup () {
+      this.$store.commit('setPopup', !this.popup);
     }
   },
   computed: {
     categories () {
       return this.$store.state.data.categories ? this.$store.state.data.categories.name : {}
+    },
+    popup () {
+      return this.$store.state.popup;
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-header {
+.header {
+
+  &__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  }
+  &__bottom {
+  background-image: radial-gradient(circle at 97% 3%, #669ccc, #66ccb6);
+  padding-bottom: 260px;
+  margin-bottom: -240px;
+  padding-top: 90px;
+}
 }
 .logo {
   display: flex;
@@ -56,6 +74,7 @@ header {
   height: 60px;
   position: relative;
   cursor: pointer;
+  z-index: 2;
 
   &::before,
   &::after {
@@ -64,6 +83,7 @@ header {
     left: 20px;
     background: #000;
     height: 3px;
+    transition-duration: .3s;
   }
 
   &::before {
@@ -74,6 +94,21 @@ header {
   &::after {
     width: 10px;
     top: 34px;
+  }
+
+  &--active {
+    &::before, &::after  {
+      width: 20px;
+      top: 50%;
+      left: 50%
+    }
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+      box-shadow: none;
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
   }
 }
 
@@ -110,6 +145,39 @@ aside {
   font-family: Roboto;
   font-size: 13px;
   color: #b3b3b3;
-
 }
+
+.main-heading {
+  font-family: Roboto, sans-serif;
+  font-size: 150px;
+  font-weight: 300;
+  line-height: 1;
+  color: #a1d3e6;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.sub-heading {
+  width: 685px;
+  height: 31px;
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  color: #ffffff;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: linear-gradient(43deg, rgba(242, 242, 242, 0), #dae3f2);
+  z-index: 1;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold
+}
+
 </style>

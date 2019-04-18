@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    data: {}
+    data: {},
+    popup: false
   },
   mutations: {
     increment (state) {
@@ -11,6 +12,9 @@ const store = new Vuex.Store({
     },
     setData (state, data) {
       state.data = data
+    },
+    setPopup (state, flag) {
+      state.popup  = flag
     }
   },
   actions: {
